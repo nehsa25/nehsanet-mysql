@@ -1,3 +1,5 @@
+create schema nehsanet;
+
 use nehsanet; 
 CREATE TABLE `pages` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -10,6 +12,7 @@ CREATE TABLE `related_pages` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `page_id` INT NOT NULL,
     `related_page_id` INT NOT NULL,
+    UNIQUE (page_id, related_page_id),
     FOREIGN KEY (page_id) REFERENCES pages(id),
     FOREIGN KEY (related_page_id) REFERENCES pages(id)
 );
@@ -81,6 +84,7 @@ INSERT INTO pages (stem, title) VALUES
 ('/aiimage', 'AI Image Generation'),
 ('/inno', 'INNO Setup'),
 ('/mysql', 'MySQL'),
+('/mariadb', 'MariaDB'),
 ('/regex', 'Regular Expressions'),
 ('/react', 'React'),
 ('/webdesign', 'Web Design'),
@@ -88,5 +92,15 @@ INSERT INTO pages (stem, title) VALUES
 ('/ide', 'IDEs'),
 ('/iis', 'Internet Information Services (IIS)'),
 ('/tailwindcss', 'Tailwind CSS'),
-('/redux', 'Redux')
+('/redux', 'Redux'),
+('/games', 'Games'),
+('/valheim', 'Valheim')
 
+
+insert into related_pages(page_id, related_page_id) values ((select id from pages where stem like '%cloud%'),(select id from pages where stem like '%aws%'))
+insert into related_pages(page_id, related_page_id) values ((select id from pages where stem like '%aws%'),(select id from pages where stem like '%cloud%'))
+insert into related_pages(page_id, related_page_id) values ((select id from pages where stem like '%cloud%'),(select id from pages where stem like '%gcp%'))
+insert into related_pages(page_id, related_page_id) values ((select id from pages where stem like '%gcp%'),(select id from pages where stem like '%cloud%'))
+insert into related_pages(page_id, related_page_id) values ((select id from pages where stem like '%cloud%'),(select id from pages where stem like '%azure%'))
+insert into related_pages(page_id, related_page_id) values ((select id from pages where stem like '%azure%'),(select id from pages where stem like '%cloud%'))
+insert into related_pages(page_id, related_page_id) values ((select id from pages where stem like '%cloud%'),(select id from pages where stem like '%aws%'))

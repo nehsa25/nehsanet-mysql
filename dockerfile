@@ -1,4 +1,4 @@
-FROM ubuntu/mysql:latest
+FROM mariadb:latest
 
 WORKDIR /usr/src/app
 
